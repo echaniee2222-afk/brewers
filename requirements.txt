@@ -2,3 +2,4 @@ streamlit
 pybaseball
 plotly
 pandas
+wikipedia
