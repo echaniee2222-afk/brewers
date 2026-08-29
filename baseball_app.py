@@ -26,7 +26,7 @@ if menu == " 투구 분석":
         st.title(f" {name_display} 투구 분석")
         st.write(f"선택한 기간 동안 {name_display} 선수의 실시간 투구 데이터를 분석합니다.")
     else:
-        st.title(" 밀워키 투수 실시간 분석기")
+        st.title(" mlb 투수 실시간 분석기")
         st.info(" 왼쪽 사이드바에 투수 이름과 성을 영어로 입력해 주세요. (예: jacob / misiorowski)")
 
     if is_searched:
