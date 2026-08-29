@@ -31,13 +31,29 @@ st.markdown("""
     div[data-testid="stButton"] button:hover {
         background-color: #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.15); color: #ffffff;
     }
-    .stTabs [data-baseweb="tab-list"] { gap: 10px; }
+    
+    /* 🌟 탭(Tab) 디자인 수정 부분 */
+    .stTabs [data-baseweb="tab-list"] { gap: 8px; }
     .stTabs [data-baseweb="tab"] {
-        height: 50px; white-space: pre-wrap; background-color: #ffffff;
-        border-radius: 8px 8px 0 0; padding: 10px 20px; font-weight: 600;
-        border: 1px solid #e2e8f0; border-bottom: none;
+        height: 48px; 
+        white-space: pre-wrap; 
+        background-color: #ffffff;
+        border-radius: 8px 8px 0 0 !important; /* 상단 모서리 라운딩 강제 적용 */
+        padding: 10px 20px; 
+        font-weight: 600;
+        border: 1px solid #e2e8f0; 
+        border-bottom: none; 
+        color: #64748b;
     }
-    .stTabs [aria-selected="true"] { background-color: #1e293b; color: #ffffff; }
+    /* 선택된 탭의 배경색과 글자색 변경 */
+    .stTabs [aria-selected="true"] { 
+        background-color: #f1f5f9 !important; /* 부드러운 밝은 회색 */
+        color: #0f172a !important; /* 글자는 진한 네이비 */
+    }
+    /* Streamlit 고유의 빨간색 밑줄(Highlight)을 회색으로 덮기 */
+    .stTabs [data-baseweb="tab-highlight"] {
+        background-color: #cbd5e1 !important; 
+    }
     </style>
 """, unsafe_allow_html=True)
 
