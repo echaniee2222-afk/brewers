@@ -103,11 +103,10 @@ elif menu == " 선수 프로필":
                 
                 st.write("---")
                 st.subheader(" 야구 전문 데이터베이스 연결")
-                st.write("아래 링크를 클릭하면 해당 선수의 세부 성적과 스카우팅 리포트 페이지로 바로 이동합니다.")
+                st.write("아래 링크를 클릭하면 해당 선수의 세부 성적 페이지로 바로 이동합니다.")
                 
                 # 선수 이름을 기반으로 외부 사이트 검색 결과 링크를 자동 생성
                 st.markdown(f" **[Baseball-Reference ({name_display} 통산 기록 보기)](https://www.baseball-reference.com/search/search.fcgi?search={first_name}+{last_name})**")
-                st.markdown(f" **[FanGraphs ({name_display} 스카우팅 리포트 보기)](https://www.fangraphs.com/players/{first_name}-{last_name})**")
                 
     else:
         st.title(" 선수 프로필")
