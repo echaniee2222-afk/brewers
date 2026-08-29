@@ -5,11 +5,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 import datetime  # 🌟 [신규] 날짜와 시간을 자동으로 계산해주는 도구
 
-st.title("⚾ 밀워키 투수 실시간 전력분석기")
+st.title("밀워키 투수 실시간 전력분석기")
 st.write("선수를 검색하면 이번 시즌 개막부터 오늘까지의 최신 데이터를 분석합니다!")
 
 # --- 🌟 [신규] 사이드바(옆면 메뉴)에 달력 및 검색 기능 추가 ---
-st.sidebar.header("🔍 검색 및 날짜 설정")
+st.sidebar.header("검색 및 날짜 설정")
 first_name = st.sidebar.text_input("투수 이름 (First Name)", "jacob")
 last_name = st.sidebar.text_input("투수 성 (Last Name)", "misiorowski")
 
@@ -34,9 +34,9 @@ if st.button("최신 투구 데이터 가져오기"):
         if df.empty:
             st.warning(f"선택하신 기간({start_date} ~ {end_date})에는 등판 기록이 없습니다.")
         else:
-            st.success("데이터 업데이트 완료! 🎉")
+            st.success("데이터 업데이트를 완료했습니다")
             
-            df['투구_결과'] = df['type'].replace({'S': '스트라이크 🎯', 'B': '볼 ⚾', 'X': '인플레이(타격) 💥'})
+            df['투구_결과'] = df['type'].replace({'S': '스트라이크', 'B': '볼', 'X': '인플레이(타격)    '})
             
             df['game_date'] = pd.to_datetime(df['game_date'])
             df['월'] = df['game_date'].dt.month
@@ -50,9 +50,9 @@ if st.button("최신 투구 데이터 가져오기"):
                 with tab:
                     month_df = df[df['월'] == month]
                     
-                    st.write(f"### 📅 {month}월 투구 분석 (총 {len(month_df)}구)")
+                    st.write(f"### {month}월 투구 분석 (총 {len(month_df)}구)")
                     
-                    st.subheader("📍 1. 릴리스 포인트 탄착군")
+                    st.subheader("1. 릴리스 포인트 탄착군")
                     avg_x = month_df['release_pos_x'].mean()
                     avg_z = month_df['release_pos_z'].mean()
 
@@ -65,7 +65,7 @@ if st.button("최신 투구 데이터 가져오기"):
                     fig_release.add_hline(y=avg_z, line_dash="dot", line_color="rgba(255, 0, 0, 0.5)")
                     st.plotly_chart(fig_release)
 
-                    st.subheader("📺 2. ABS 투구 궤적")
+                    st.subheader("2. ABS 투구 궤적")
                     fig_abs = px.scatter(
                         month_df, x='plate_x', y='plate_z', color='pitch_name',
                         hover_data=['release_speed', '투구_결과']
@@ -75,5 +75,5 @@ if st.button("최신 투구 데이터 가져오기"):
                     fig_abs.update_layout(xaxis_title="좌우 위치 (피트)", yaxis_title="공의 높이 (피트)", xaxis_range=[-3, 3], yaxis_range=[-0.5, 5], width=600, height=600)
                     st.plotly_chart(fig_abs)
 
-                    st.subheader(f"📊 {month}월 실제 데이터")
+                    st.subheader(f"{month}월 실제 데이터")
                     st.dataframe(month_df[['game_date', 'pitch_name', '투구_결과', 'release_speed', 'plate_x', 'plate_z']])
