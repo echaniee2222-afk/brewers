@@ -12,10 +12,24 @@ st.set_page_config(page_title="MLB Pitching Lab", layout="wide", page_icon="⚾"
 st.markdown("""
     <style>
     @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
-    html, body, [class*="st-"] {
+    
+    /* 🌟 전체 배경 및 기본 폰트 (아이콘을 부수지 않도록 !important 제거) */
+    html, body, .stApp {
+        font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+        background-color: #f4f6f9;
+    }
+    
+    /* 🌟 글자 요소들에만 예쁜 폰트 강제 적용 */
+    p, h1, h2, h3, h4, h5, h6, li, label, div[data-testid="stMetricValue"], div[data-testid="stMetricLabel"] {
         font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif !important;
     }
-    .stApp { background-color: #f4f6f9; }
+    
+    /* 🌟 사이드바 아이콘 복구 (시스템 아이콘 전용 폰트로 철벽 방어) */
+    span[class*="material"], .material-symbols-rounded, .material-icons, .stIcon, div[data-testid="collapsedControl"] span, div[data-testid="stSidebarCollapseButton"] span {
+        font-family: "Material Symbols Rounded", "Material Icons", sans-serif !important;
+        font-weight: normal !important;
+    }
+    
     div[data-testid="stMetric"] {
         background-color: #ffffff; border-radius: 12px; padding: 20px 24px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;
@@ -32,25 +46,23 @@ st.markdown("""
         background-color: #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.15); color: #ffffff;
     }
     
-    /* 🌟 탭(Tab) 디자인 수정 부분 */
+    /* 탭(Tab) 디자인 수정 부분 */
     .stTabs [data-baseweb="tab-list"] { gap: 8px; }
     .stTabs [data-baseweb="tab"] {
         height: 48px; 
         white-space: pre-wrap; 
         background-color: #ffffff;
-        border-radius: 8px 8px 0 0 !important; /* 상단 모서리 라운딩 강제 적용 */
+        border-radius: 8px 8px 0 0 !important; 
         padding: 10px 20px; 
         font-weight: 600;
         border: 1px solid #e2e8f0; 
         border-bottom: none; 
         color: #64748b;
     }
-    /* 선택된 탭의 배경색과 글자색 변경 */
     .stTabs [aria-selected="true"] { 
-        background-color: #f1f5f9 !important; /* 부드러운 밝은 회색 */
-        color: #0f172a !important; /* 글자는 진한 네이비 */
+        background-color: #f1f5f9 !important; 
+        color: #0f172a !important; 
     }
-    /* Streamlit 고유의 빨간색 밑줄(Highlight)을 회색으로 덮기 */
     .stTabs [data-baseweb="tab-highlight"] {
         background-color: #cbd5e1 !important; 
     }
@@ -211,8 +223,8 @@ if menu == "투구 데이터 분석":
         with tab1:
             kpi1, kpi2, kpi3, kpi4 = st.columns(4)
             kpi1.metric("정규시즌 등판 경기", f"{num_games}경기")
-            kpi2.metric("총 마운드 진입", f"{total_innings}회")
-            kpi3.metric("평균 마운드 진입", f"{avg_innings}회")
+            kpi2.metric("총 소화 이닝", f"{total_innings}이닝")
+            kpi3.metric("평균 소화 이닝", f"{avg_innings}이닝")
             kpi4.metric("총 투구 수", f"{total_pitches}구")
             
         with tab2:
@@ -335,10 +347,11 @@ elif menu == "선수 프로필":
                     <li><b>데이터 출처:</b> Major League Baseball (MLBAM)</li>
                 </ul>
                 <hr style="border: 1px solid #f1f5f9; margin: 24px 0;">
-                <h4 style="color: #0f172a; margin-bottom: 16px;">외부 전문 통계실 연동</h4>
+                <h4 style="color: #0f172a; margin-bottom: 16px;">외부 전문 통계실 연동 (확실한 링크)</h4>
                 <ul style="color: #475569; font-size: 1.05rem; line-height: 1.8;">
-                    <li><a href="https://www.baseball-reference.com/search/search.fcgi?search={first_name}+{last_name}" target="_blank" style="color: #2563eb; text-decoration: none;">Baseball-Reference ({name_display} 통산 성적 바로가기)</a></li>
-                    <li><a href="https://www.fangraphs.com/players/{first_name}-{last_name}" target="_blank" style="color: #2563eb; text-decoration: none;">FanGraphs (세이버메트릭스 리포트 바로가기)</a></li>
+                    <li><a href="https://baseballsavant.mlb.com/savant-player/{first_name}-{last_name}-{mlbam_id}" target="_blank" style="color: #2563eb; text-decoration: none;">⚾ Baseball Savant (스탯캐스트 공식 트래킹 리포트)</a></li>
+                    <li><a href="https://www.mlb.com/player/{first_name}-{last_name}-{mlbam_id}" target="_blank" style="color: #2563eb; text-decoration: none;">🧢 MLB.com (메이저리그 공식 홈페이지 프로필)</a></li>
+                    <li><a href="https://www.baseball-reference.com/search/search.fcgi?search={first_name}+{last_name}" target="_blank" style="color: #2563eb; text-decoration: none;">📊 Baseball-Reference (전통적인 누적 스탯 확인)</a></li>
                 </ul>
             </div>
             """, unsafe_allow_html=True)
